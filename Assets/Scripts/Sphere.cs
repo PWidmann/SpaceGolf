@@ -44,16 +44,9 @@ public class Sphere : MonoBehaviour
         }
             
     }
-
-    //public void AddMovement(Vector3 additionalMovement)
-    //{
-    //    movement += additionalMovement;
-    //}
-
     public void AddGravity()
     {
-        if (!isColliding && movement.magnitude > 0.04f)
-            movement.y += gravity * Time.deltaTime;
+        movement.y += gravity * Time.deltaTime;
     }
 
     public void Move()
@@ -64,7 +57,7 @@ public class Sphere : MonoBehaviour
             pushVector = Vector3.zero;
         }
 
-        if (movement.magnitude >= 0.04f)
+        if (movement.magnitude >= 0.08f)
         {
             transform.Translate(movement * Time.deltaTime);
         }
@@ -76,10 +69,10 @@ public class Sphere : MonoBehaviour
 
 
         // Rise ball if under collision box
-        if (isColliding)
-        {
-            transform.position += new Vector3(0, 0.2f, 0) * Time.deltaTime;
-        }
+        //if (isColliding)
+        //{
+        //    transform.position += new Vector3(0, 0.2f, 0) * Time.deltaTime;
+        //}
         
     }
 
@@ -90,5 +83,8 @@ public class Sphere : MonoBehaviour
 
         changedMovementOnCollision = true;
         isColliding = true;
+
+        if (movement.magnitude <= 0.04f)
+            changedMovementOnCollision = false;
     }
 }

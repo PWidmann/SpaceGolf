@@ -20,7 +20,7 @@ public class PhysicsManager : MonoBehaviour
 
     Vector3 normalVector;
 
-    RaycastHit hit;
+    Box lastCollisionBox = new Box();
 
     void Start()
     {
@@ -50,6 +50,8 @@ public class PhysicsManager : MonoBehaviour
     {
         collisionHappened = false;
 
+        
+
         foreach (Box box in boxList)
         {
             if (isSphereIntersectingAABB(ball, box.bounds))
@@ -67,10 +69,6 @@ public class PhysicsManager : MonoBehaviour
             ball.changedMovementOnCollision = false;
             ball.isColliding = false;
         }
-
-        
-
-        
     }
 
     public bool isSphereIntersectingAABB(Sphere sphere, Bounds box)
@@ -88,42 +86,34 @@ public class PhysicsManager : MonoBehaviour
         return distance <= sphere.radius;
     }
 
-    //public bool isPointIntersectingAABB(Vector3 point, Bounds box)
-    //{
-    //    return (point.x >= box.min.x && point.x <= box.max.x) &&
-    //     (point.y >= box.min.y && point.y <= box.max.y) &&
-    //     (point.z >= box.min.z && point.z <= box.max.z);
-    //}
-
     public Vector3 calcNormalVector(Sphere sphere, Bounds box)
     {
         // Ball is already colliding with box when this code runs
-
         // Calculate normals from positions
+
 
         // To deal with fast ball traveling
         collisionThreshold = ball.radius * 2;
 
-        //Vector3 returnVector = new Vector3(0, 0, 0);
 
         // Ball collides in Y direction
         if (sphere.transform.position.y >= box.max.y - collisionThreshold)
             normalVector = Vector3.up;
 
         // Ball colliding in z direction
-        else if ((sphere.transform.position.z < box.min.z + collisionThreshold) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x < box.max.x) && (sphere.transform.position.x > box.min.x))
+        if ((sphere.transform.position.z < box.min.z + collisionThreshold) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x < box.max.x) && (sphere.transform.position.x > box.min.x))
             normalVector = Vector3.forward;
 
         // Ball colliding in minus z direction
-        else if ((sphere.transform.position.z > box.max.z - collisionThreshold) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x < box.max.x) && (sphere.transform.position.x > box.min.x))
+        if ((sphere.transform.position.z > box.max.z - collisionThreshold) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x < box.max.x) && (sphere.transform.position.x > box.min.x))
             normalVector = -Vector3.forward;
 
         // Ball colliding in x direction
-        else if ((sphere.transform.position.z > box.min.z) && (sphere.transform.position.z < box.max.z) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x < box.min.x + collisionThreshold))
+        if ((sphere.transform.position.z > box.min.z) && (sphere.transform.position.z < box.max.z) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x < box.min.x + collisionThreshold))
             normalVector = Vector3.right;
 
         // Ball colliding in minus x direction
-        else if ((sphere.transform.position.z > box.min.z) && (sphere.transform.position.z < box.max.z) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x > box.max.x - collisionThreshold))
+        if ((sphere.transform.position.z > box.min.z) && (sphere.transform.position.z < box.max.z) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x > box.max.x - collisionThreshold))
             normalVector = -Vector3.right;
 
         return normalVector;
