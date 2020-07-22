@@ -57,7 +57,7 @@ public class Sphere : MonoBehaviour
             pushVector = Vector3.zero;
         }
 
-        if (movement.magnitude >= 0.08f)
+        if (movement.magnitude >= 0.02f)
         {
             transform.Translate(movement * Time.deltaTime);
         }

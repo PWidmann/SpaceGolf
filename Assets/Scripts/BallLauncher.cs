@@ -34,7 +34,7 @@ public class BallLauncher : MonoBehaviour
                 launchPower += Time.deltaTime / 2;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && ball.GetComponent<Sphere>().movement == Vector3.zero)
         {
             LaunchBall(launchPower);
             powerBar.SetActive(false);

@@ -39,7 +39,7 @@ public class PhysicsManager : MonoBehaviour
         CheckForCollisions();
 
         // Add gravity
-        if (!ball.isColliding)
+        if (!ball.isColliding )
             ball.GetComponent<Sphere>().AddGravity();
 
         // Move ball
@@ -98,7 +98,10 @@ public class PhysicsManager : MonoBehaviour
 
         // Ball collides in Y direction
         if (sphere.transform.position.y >= box.max.y - collisionThreshold)
+        {
             normalVector = Vector3.up;
+        }
+            
 
         // Ball colliding in z direction
         if ((sphere.transform.position.z < box.min.z + collisionThreshold) && (sphere.transform.position.y < box.max.y) && (sphere.transform.position.y > box.min.y) && (sphere.transform.position.x < box.max.x) && (sphere.transform.position.x > box.min.x))
