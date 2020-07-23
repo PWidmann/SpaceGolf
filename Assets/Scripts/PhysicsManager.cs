@@ -10,6 +10,7 @@ using UnityEngine;
 public class PhysicsManager : MonoBehaviour
 {
     public Sphere ball;
+    public GameObject playerStart;
 
     [Header("Course Prefabs")]
     public GameObject[] trackParts;
@@ -37,6 +38,14 @@ public class PhysicsManager : MonoBehaviour
             }
             
         }
+
+        ball.transform.position = playerStart.transform.position;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R) && ball.movement == Vector3.zero)
+            ball.transform.position = playerStart.transform.position;
     }
 
     private void FixedUpdate()
@@ -60,7 +69,7 @@ public class PhysicsManager : MonoBehaviour
 
         foreach (Box box in boxList)
         {
-            if (isSphereIntersectingAABB(ball, box.bounds))
+            if (isSphereIntersectingAABB(ball.transform.position, box.bounds))
             {
 
                 if (ball.canChangeMovement == true)
@@ -80,19 +89,19 @@ public class PhysicsManager : MonoBehaviour
         }
     }
 
-    public bool isSphereIntersectingAABB(Sphere sphere, Bounds box)
+    public bool isSphereIntersectingAABB(Vector3 spherePosition, Bounds box)
     {
         // get box closest point to sphere center by clamping
-        var x = Math.Max(box.min.x, Math.Min(sphere.transform.position.x, box.max.x));
-        var y = Math.Max(box.min.y, Math.Min(sphere.transform.position.y, box.max.y));
-        var z = Math.Max(box.min.z, Math.Min(sphere.transform.position.z, box.max.z));
+        var x = Math.Max(box.min.x, Math.Min(spherePosition.x, box.max.x));
+        var y = Math.Max(box.min.y, Math.Min(spherePosition.y, box.max.y));
+        var z = Math.Max(box.min.z, Math.Min(spherePosition.z, box.max.z));
 
         // this is the same as isPointInsideSphere
-        var distance = Math.Sqrt((x - sphere.transform.position.x) * (x - sphere.transform.position.x) +
-                                 (y - sphere.transform.position.y) * (y - sphere.transform.position.y) +
-                                 (z - sphere.transform.position.z) * (z - sphere.transform.position.z));
+        var distance = Math.Sqrt((x - spherePosition.x) * (x - spherePosition.x) +
+                                 (y - spherePosition.y) * (y - spherePosition.y) +
+                                 (z - spherePosition.z) * (z - spherePosition.z));
 
-        return distance <= sphere.radius;
+        return distance <= ball.radius;
     }
 
     public Vector3 calcNormalVector(Sphere sphere, Bounds box)
@@ -100,7 +109,7 @@ public class PhysicsManager : MonoBehaviour
         // Ball is already colliding with box when this code runs
         
         // For dealing with frame skipping
-        collisionThreshold = ball.radius * 3;
+        collisionThreshold = ball.radius * 1;
 
         // Calculate normals from positions
 
@@ -159,14 +168,11 @@ public class PhysicsManager : MonoBehaviour
         {
             foreach (Box box in boxList)
             {
-                // Check if over a Box
-                if ((ball.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.bounds.min.x) &&
-                    (ball.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.bounds.max.x) &&
-                    (ball.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.bounds.max.z) &&
-                    (ball.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.bounds.min.z))
+                // Check if ball is over a box
+                if (isSphereIntersectingAABB(ball.transform.position + new Vector3(0, -0.3f, 0), box.bounds))
                 {
                     isOverGround = true;
-                    
+                    break;
                 }
             }
         }
@@ -177,10 +183,10 @@ public class PhysicsManager : MonoBehaviour
             ball.gravityActive = true;
             ball.ballIsRolling = false;
         }
-            
+
 
         // Handling ball roll slowing
         if (!ball.gravityActive)
-            ball.movement *= 0.99f;
+            ball.movement *= 0.999f; // Good value for Fixed Timestep 0.005
     }
 }
