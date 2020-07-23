@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 // 3D Collision code snippets
@@ -10,23 +9,22 @@ using UnityEngine;
 public class PhysicsManager : MonoBehaviour
 {
     public Sphere ball;
-    public GameObject playerStart;
+    public GameObject playerStartPosition;
 
     [Header("Course Prefabs")]
     public GameObject[] trackParts;
+
+    // Bounding boxes
     GameObject parentObject;
-
-    public List<Box> boxList = new List<Box>();
+    private List<Box> boxList = new List<Box>();
     
-
-
     //Collision
     Vector3 normalVector;
     bool collisionHappened;
-    float collisionThreshold;
 
     void Start()
-    {      
+    {
+        // Make bounding box list
         foreach (GameObject trackObject in trackParts)
         {
             if(trackObject)
@@ -36,27 +34,28 @@ public class PhysicsManager : MonoBehaviour
             {
                 boxList.Add(child.GetComponent<Box>());
             }
-            
         }
 
-        ball.transform.position = playerStart.transform.position;
+        ball.transform.position = playerStartPosition.transform.position;
     }
 
     private void Update()
     {
+        // Reset player to start
         if (Input.GetKeyDown(KeyCode.R) && ball.movement == Vector3.zero)
-            ball.transform.position = playerStart.transform.position;
+            ball.transform.position = playerStartPosition.transform.position;
     }
 
     private void FixedUpdate()
     {
         CheckForCollisions();
 
+        // Ball rolling physics
+        HandlingBallRollGravity();
+
         // Gravity
         if (!ball.isColliding)
             ball.GetComponent<Sphere>().AddGravity();
-
-        HandlingBallRollGravity();
 
         // Move ball
         ball.GetComponent<Sphere>().Move();
@@ -66,17 +65,17 @@ public class PhysicsManager : MonoBehaviour
     {
         collisionHappened = false;
 
-
         foreach (Box box in boxList)
         {
             if (isSphereIntersectingAABB(ball.transform.position, box.bounds))
             {
+                ball.isColliding = true;
 
                 if (ball.canChangeMovement == true)
                     ball.ChangeMovementOnCollision(calcNormalVector(ball, box.bounds), ball.bounciness * box.bounciness);
 
-                collisionHappened = true;
-                ball.isColliding = true;
+                // Only one movement change per collision
+                collisionHappened = true; 
                 ball.canChangeMovement = false;
                 break;
             }
@@ -84,12 +83,13 @@ public class PhysicsManager : MonoBehaviour
 
         if (!collisionHappened)
         {
-            ball.canChangeMovement = true;
+            // If no more colliding, make movement change ready again
             ball.isColliding = false;
+            ball.canChangeMovement = true;
         }
     }
 
-    public bool isSphereIntersectingAABB(Vector3 spherePosition, Bounds box)
+    private bool isSphereIntersectingAABB(Vector3 spherePosition, Bounds box)
     {
         // get box closest point to sphere center by clamping
         var x = Math.Max(box.min.x, Math.Min(spherePosition.x, box.max.x));
@@ -104,63 +104,56 @@ public class PhysicsManager : MonoBehaviour
         return distance <= ball.radius;
     }
 
-    public Vector3 calcNormalVector(Sphere sphere, Bounds box)
+    private Vector3 calcNormalVector(Sphere sphere, Bounds box)
     {
         // Ball is already colliding with box when this code runs
-        
-        // For dealing with frame skipping
-        collisionThreshold = ball.radius * 1;
-
         // Calculate normals from positions
 
-        // TO DO Abfrage was passiert wenn mit Y kollidiert UND mit Wänden
-
-        
 
         // Ball colliding in x direction
-        if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.min.z - collisionThreshold) && 
-            (sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.max.z + collisionThreshold) && 
-            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) < box.max.y + collisionThreshold) && 
-            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) > box.min.y - collisionThreshold) && 
-            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.min.x + collisionThreshold))
+        if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.min.z - ball.radius) && 
+            (sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.max.z + ball.radius) && 
+            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) < box.max.y + ball.radius) && 
+            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) > box.min.y - ball.radius) && 
+            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.min.x + ball.radius))
             normalVector = -Vector3.right;
 
         // Ball colliding in minus x direction
-        if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.min.z - collisionThreshold) && 
-            (sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.max.z + collisionThreshold) && 
-            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) < box.max.y + collisionThreshold) && 
-            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) > box.min.y - collisionThreshold) && 
-            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.max.x - collisionThreshold))
+        if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.min.z - ball.radius) && 
+            (sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.max.z + ball.radius) && 
+            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) < box.max.y + ball.radius) && 
+            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) > box.min.y - ball.radius) && 
+            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.max.x - ball.radius))
             normalVector = Vector3.right;
 
         // Ball colliding in z direction
-        if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.min.z + collisionThreshold) &&
-            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) < box.max.y + collisionThreshold) &&
-            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) > box.min.y - collisionThreshold) &&
-            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.max.x + collisionThreshold) &&
-            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.min.x - collisionThreshold))
+        if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.min.z + ball.radius) &&
+            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) < box.max.y + ball.radius) &&
+            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) > box.min.y - ball.radius) &&
+            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.max.x + ball.radius) &&
+            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.min.x - ball.radius))
             normalVector = Vector3.forward;
 
         // Ball colliding in minus z direction
-        if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.max.z - collisionThreshold) &&
-            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) < box.max.y + collisionThreshold) &&
-            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) > box.min.y - collisionThreshold) &&
-            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.max.x + collisionThreshold) &&
-            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.min.x - collisionThreshold))
+        if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.max.z - ball.radius) &&
+            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) < box.max.y + ball.radius) &&
+            (sphere.transform.position.y + (ball.movement.y * Time.fixedDeltaTime) > box.min.y - ball.radius) &&
+            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.max.x + ball.radius) &&
+            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.min.x - ball.radius))
             normalVector = -Vector3.forward;
 
         // Ball collides in Minus Y direction (Top -> Down)
-        if ((sphere.transform.position.y + (ball.movement.z * Time.fixedDeltaTime) > box.max.y - collisionThreshold) &&
-            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.min.x - collisionThreshold) &&
-            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.max.x + collisionThreshold) &&
-            (sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.max.z + collisionThreshold) &&
-            (sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.min.z - collisionThreshold))
+        if ((sphere.transform.position.y + (ball.movement.z * Time.fixedDeltaTime) > box.max.y - ball.radius) &&
+            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) > box.min.x - ball.radius) &&
+            (sphere.transform.position.x + (ball.movement.x * Time.fixedDeltaTime) < box.max.x + ball.radius) &&
+            (sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) < box.max.z + ball.radius) &&
+            (sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.min.z - ball.radius))
             normalVector = Vector3.up;
 
         return normalVector;
     }
 
-    public void HandlingBallRollGravity()
+    private void HandlingBallRollGravity()
     {
         bool isOverGround = false;
 

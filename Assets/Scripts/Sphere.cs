@@ -7,25 +7,21 @@ public class Sphere : MonoBehaviour
 {
     public static Sphere Instance;
 
-    public Vector3 movement;
-    public float radius;
     public float bounciness = 0.7f;
     public float gravity = -9.81f;
 
-    Vector3 checkPointPosition;
-
+    public float radius;
+    public Vector3 movement;
     public Vector3 pushVector;
 
+    // For Physics
     public bool isColliding = false;
-
     public bool canChangeMovement = false;
-
-    Renderer renderer;
-
     public bool gravityActive = true;
     public bool ballIsRolling = false;
-
     
+    new Renderer renderer;
+    Vector3 checkPointPosition;
 
     void Start()
     {
@@ -35,7 +31,6 @@ public class Sphere : MonoBehaviour
         renderer = GetComponent<Renderer>();
         radius = renderer.bounds.extents.x;
     }
-
     
     void FixedUpdate()
     {
@@ -61,6 +56,7 @@ public class Sphere : MonoBehaviour
             pushVector = Vector3.zero;
         }
 
+        // Clamp movement for handling jittering
         if (movement.magnitude >= 0.1f)
         {
             transform.Translate(movement * Time.fixedDeltaTime);
@@ -68,8 +64,8 @@ public class Sphere : MonoBehaviour
         else
         {
             movement = Vector3.zero;
-            gravityActive = false;
             checkPointPosition = transform.position;
+            gravityActive = false;
             ballIsRolling = true;
         }
 
@@ -85,6 +81,6 @@ public class Sphere : MonoBehaviour
     public void ChangeMovementOnCollision(Vector3 normal, float bounciness)
     {
         movement = Quaternion.AngleAxis(180, normal) * movement;
-        movement *= -bounciness; // das - dreht den Vektor weg von der Kollision
+        movement *= -bounciness; // Turns movement vector away from collision
     }
 }

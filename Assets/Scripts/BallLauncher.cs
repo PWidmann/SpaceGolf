@@ -14,7 +14,6 @@ public class BallLauncher : MonoBehaviour
     [SerializeField] Image powerBarImage;
 
     Sphere ball;
-
     Vector3 pushVector;
     float launchPower = 0f;
 
@@ -23,28 +22,23 @@ public class BallLauncher : MonoBehaviour
         ball = ballObject.GetComponent<Sphere>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         DrawTargetDirection();
 
-        // Launch Ball
         if (Input.GetMouseButton(0) && Sphere.Instance.movement == Vector3.zero)
         {
+            // Show and fill power bar
             powerBar.SetActive(true);
-
-            
-
             if (launchPower < 1f)
                 launchPower += Time.deltaTime / 2;
         }
 
         if (Input.GetMouseButtonUp(0) && ball.GetComponent<Sphere>().movement == Vector3.zero)
         {
+            // Launch Ball
             LaunchBall(launchPower);
             powerBar.SetActive(false);
-
-            ball.canChangeMovement = false; // Set false so the collision system can check even when ball moves on the ground and therefore 'colliding'
         }
 
         powerBarImage.fillAmount = launchPower;
@@ -52,6 +46,7 @@ public class BallLauncher : MonoBehaviour
 
     void DrawTargetDirection()
     {
+        // Show and rotate target arrow
         if (Sphere.Instance.movement == Vector3.zero)
         {
             targetPlane.SetActive(true);
@@ -66,7 +61,7 @@ public class BallLauncher : MonoBehaviour
 
     void LaunchBall(float power)
     {
-        // Default 35
+        // 35 Power max
         power *= 35;
 
         pushVector = (target.transform.position - ball.transform.position).normalized * power;

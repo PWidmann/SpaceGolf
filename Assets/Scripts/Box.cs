@@ -7,8 +7,7 @@ public class Box : MonoBehaviour
     // AABB
     public Bounds bounds;
     public float bounciness = 1f;
-
-    Renderer renderer;
+    new Renderer renderer;
 
     void Start()
     {

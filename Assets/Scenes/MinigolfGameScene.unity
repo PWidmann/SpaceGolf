@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1.07
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 2d59d810ba900874295015e507e19f2e, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -602,7 +602,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50.000004, y: 110.27901, z: 0}
 --- !u!1 &772948342
 GameObject:
@@ -993,7 +993,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &963194229
 AudioSource:
@@ -1120,7 +1120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1944900811}
   mouseSensitivity: 5
-  maxDistanceFromTarget: 20
+  maxDistanceFromTarget: 10
   minDistanceFromTarget: 2
   yaw: 0
 --- !u!1 &1253301971
@@ -1215,7 +1215,7 @@ RectTransform:
   m_Children:
   - {fileID: 134699194}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1286,7 +1286,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1402368932
 GameObject:
@@ -1321,7 +1321,7 @@ Transform:
   - {fileID: 43978469}
   - {fileID: 850630993}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1454157010
 GameObject:
@@ -1428,13 +1428,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 1944900808}
-  playerStart: {fileID: 495309868}
+  playerStartPosition: {fileID: 495309868}
   trackParts:
   - {fileID: 554074743}
   - {fileID: 548989251}
   - {fileID: 43978470}
   - {fileID: 850630992}
-  boxList: []
 --- !u!4 &1515224275
 Transform:
   m_ObjectHideFlags: 0
@@ -1447,7 +1446,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1515224277
 MonoBehaviour:
@@ -1498,10 +1497,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 892f1653792c8f846b1fbd58a4bd614b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {x: 0, y: 0, z: 0}
-  radius: 0
   bounciness: 0.7
   gravity: -9.81
+  radius: 0
+  movement: {x: 0, y: 0, z: 0}
   pushVector: {x: 0, y: 0, z: 0}
   isColliding: 0
   canChangeMovement: 0

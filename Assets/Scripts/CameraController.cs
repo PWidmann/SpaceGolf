@@ -7,11 +7,10 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance;
 
     public Transform target;
+    public float mouseSensitivity = 5;
 
     //Camera Zoom 
     [Header("Camera Zoom")]
-    
-    public float mouseSensitivity = 5;
     public float maxDistanceFromTarget = 4;
     public float minDistanceFromTarget = 0.5f;
 
