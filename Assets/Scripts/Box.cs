@@ -20,6 +20,6 @@ public class Box : MonoBehaviour
     
     void FixedUpdate()
     {
-        bounds = renderer.bounds;
+
     }
 }

@@ -37,8 +37,8 @@ public class CameraController : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
-        currentCameraZoom = maxDistanceFromTarget / 4;
-        targetCameraZoom = maxDistanceFromTarget / 4;
+        currentCameraZoom = 2;
+        targetCameraZoom = 2;
 
         // Starting camera rotation
         yaw = 50;
@@ -48,8 +48,7 @@ public class CameraController : MonoBehaviour
         // Camera smoothing depends on timescale
         currentRotation = Vector3.SmoothDamp(currentRotation, targetRotation, ref rotationSmoothVelocity, rotationSmoothTime);
         transform.eulerAngles = currentRotation;
-        
-        Cursor.visible = false;
+
         Cursor.lockState = CursorLockMode.Locked;
 
     }

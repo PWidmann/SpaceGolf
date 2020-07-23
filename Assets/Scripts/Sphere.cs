@@ -18,9 +18,12 @@ public class Sphere : MonoBehaviour
 
     public bool isColliding = false;
 
-    public bool changedMovementOnCollision = false;
+    public bool canChangeMovement = false;
 
     Renderer renderer;
+
+    public bool gravityActive = true;
+    public bool ballIsRolling = false;
 
     
 
@@ -34,9 +37,9 @@ public class Sphere : MonoBehaviour
     }
 
     
-    void Update()
+    void FixedUpdate()
     {
-        // Reset when ball falls off
+        // Reset to checkpoint when ball falls off
         if (transform.position.y <= -30f)
         {
             transform.position = checkPointPosition;
@@ -46,7 +49,8 @@ public class Sphere : MonoBehaviour
     }
     public void AddGravity()
     {
-        movement.y += gravity * Time.deltaTime;
+        if(gravityActive)
+            movement.y += gravity * Time.fixedDeltaTime;
     }
 
     public void Move()
@@ -57,22 +61,24 @@ public class Sphere : MonoBehaviour
             pushVector = Vector3.zero;
         }
 
-        if (movement.magnitude >= 0.02f)
+        if (movement.magnitude >= 0.1f)
         {
-            transform.Translate(movement * Time.deltaTime);
+            transform.Translate(movement * Time.fixedDeltaTime);
         }
         else
         {
             movement = Vector3.zero;
+            gravityActive = false;
             checkPointPosition = transform.position;
+            ballIsRolling = true;
         }
 
 
         // Rise ball if under collision box
-        //if (isColliding)
-        //{
-        //    transform.position += new Vector3(0, 0.2f, 0) * Time.deltaTime;
-        //}
+        if (isColliding && movement == Vector3.zero)
+        {
+            transform.position += new Vector3(0, 0.2f, 0) * Time.deltaTime;
+        }
         
     }
 
@@ -80,11 +86,5 @@ public class Sphere : MonoBehaviour
     {
         movement = Quaternion.AngleAxis(180, normal) * movement;
         movement *= -bounciness; // das - dreht den Vektor weg von der Kollision
-
-        changedMovementOnCollision = true;
-        isColliding = true;
-
-        if (movement.magnitude <= 0.04f)
-            changedMovementOnCollision = false;
     }
 }

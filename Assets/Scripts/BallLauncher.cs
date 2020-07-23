@@ -6,18 +6,21 @@ using UnityEngine.UI;
 public class BallLauncher : MonoBehaviour
 {
     [SerializeField] GameObject cam;
-    [SerializeField] GameObject ball;
+    [SerializeField] GameObject ballObject;
     [SerializeField] GameObject targetPlane;
     [SerializeField] GameObject target;
 
     [SerializeField] GameObject powerBar;
     [SerializeField] Image powerBarImage;
 
+    Sphere ball;
+
+    Vector3 pushVector;
     float launchPower = 0f;
 
     void Start()
     {
-        
+        ball = ballObject.GetComponent<Sphere>();
     }
 
     // Update is called once per frame
@@ -30,7 +33,9 @@ public class BallLauncher : MonoBehaviour
         {
             powerBar.SetActive(true);
 
-            if(launchPower < 1f)
+            
+
+            if (launchPower < 1f)
                 launchPower += Time.deltaTime / 2;
         }
 
@@ -38,6 +43,8 @@ public class BallLauncher : MonoBehaviour
         {
             LaunchBall(launchPower);
             powerBar.SetActive(false);
+
+            ball.canChangeMovement = false; // Set false so the collision system can check even when ball moves on the ground and therefore 'colliding'
         }
 
         powerBarImage.fillAmount = launchPower;
@@ -59,10 +66,12 @@ public class BallLauncher : MonoBehaviour
 
     void LaunchBall(float power)
     {
-        power *= 40;
+        // Default 35
+        power *= 35;
 
-        ball.transform.position += new Vector3(0, 0.06f, 0);
-        Sphere.Instance.pushVector = (target.transform.position - ball.transform.position).normalized * power;
+        pushVector = (target.transform.position - ball.transform.position).normalized * power;
+        pushVector.y = 0f;
+        Sphere.Instance.pushVector = pushVector;
 
         launchPower = 0f;
     }
