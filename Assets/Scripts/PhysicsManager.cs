@@ -43,7 +43,11 @@ public class PhysicsManager : MonoBehaviour
     {
         // Reset player to start
         if (Input.GetKeyDown(KeyCode.R) && ball.movement == Vector3.zero)
+        {
             ball.transform.position = playerStartPosition.transform.position;
+            GameInterface.Instance.FinishPanel.SetActive(false);
+        }
+            
     }
 
     private void FixedUpdate()

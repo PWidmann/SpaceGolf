@@ -35,12 +35,13 @@ public class Sphere : MonoBehaviour
     void FixedUpdate()
     {
         // Reset to checkpoint when ball falls off
-        if (transform.position.y <= -30f)
+        if (transform.position.y <= -80f)
         {
             transform.position = checkPointPosition;
             movement = Vector3.zero;
         }
-            
+        
+        
     }
     public void AddGravity()
     {

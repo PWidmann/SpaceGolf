@@ -10,8 +10,8 @@ public class BallLauncher : MonoBehaviour
     [SerializeField] GameObject targetPlane;
     [SerializeField] GameObject target;
 
-    [SerializeField] GameObject powerBar;
-    [SerializeField] Image powerBarImage;
+    GameObject powerBar;
+    Image powerBarImage;
 
     Sphere ball;
     Vector3 pushVector;
@@ -20,6 +20,9 @@ public class BallLauncher : MonoBehaviour
     void Start()
     {
         ball = ballObject.GetComponent<Sphere>();
+
+        powerBar = GameInterface.Instance.PowerBar;
+        powerBarImage = GameInterface.Instance.PowerBarImage;
     }
 
     void Update()
@@ -42,6 +45,8 @@ public class BallLauncher : MonoBehaviour
         }
 
         powerBarImage.fillAmount = launchPower;
+
+        
     }
 
     void DrawTargetDirection()
