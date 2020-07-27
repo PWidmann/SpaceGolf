@@ -78,9 +78,8 @@ public class PhysicsManager : MonoBehaviour
                 if (ball.canChangeMovement == true)
                     ball.ChangeMovementOnCollision(calcNormalVector(ball, box.bounds), ball.bounciness * box.bounciness);
 
-                // Only one movement change per collision
                 collisionHappened = true; 
-                ball.canChangeMovement = false;
+                ball.canChangeMovement = false; // Only one movement change per collision
                 break;
             }
         }
@@ -110,7 +109,7 @@ public class PhysicsManager : MonoBehaviour
 
     private Vector3 calcNormalVector(Sphere sphere, Bounds box)
     {
-        // Ball is already colliding with box when this code runs
+        // Ball is already colliding with the box when this code runs
         // Calculate normals from positions
 
 

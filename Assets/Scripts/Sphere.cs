@@ -14,7 +14,7 @@ public class Sphere : MonoBehaviour
     public Vector3 movement;
     public Vector3 pushVector;
 
-    // For Physics
+    // For physics
     public bool isColliding = false;
     public bool canChangeMovement = false;
     public bool gravityActive = true;
@@ -34,14 +34,12 @@ public class Sphere : MonoBehaviour
     
     void FixedUpdate()
     {
-        // Reset to checkpoint when ball falls off
+        // Reset to checkpoint when ball falls off track
         if (transform.position.y <= -80f)
         {
             transform.position = checkPointPosition;
             movement = Vector3.zero;
         }
-        
-        
     }
     public void AddGravity()
     {

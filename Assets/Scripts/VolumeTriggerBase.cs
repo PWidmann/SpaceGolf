@@ -35,10 +35,6 @@ public class VolumeTriggerBase : MonoBehaviour
     [HideInInspector]
     public Vector3 v3BackBottomRight;
 
-    private void Update()
-    {
-        Debug.Log("VolumeTriggerUpdate");
-    }
     public void CalcPositons()
     {
         Vector3 v3Center = boxBounds.center;

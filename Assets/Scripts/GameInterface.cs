@@ -25,4 +25,11 @@ public class GameInterface : MonoBehaviour
         if (Instance == null || Instance != this)
             Instance = this;
     }
+
+    public void StartGame()
+    {
+        GameManager.Instance.GameHasStarted = true;
+        welcomePanel.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }

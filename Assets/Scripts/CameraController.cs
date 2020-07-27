@@ -47,15 +47,12 @@ public class CameraController : MonoBehaviour
         // Camera smoothing depends on timescale
         currentRotation = Vector3.SmoothDamp(currentRotation, targetRotation, ref rotationSmoothVelocity, rotationSmoothTime);
         transform.eulerAngles = currentRotation;
-
-        Cursor.lockState = CursorLockMode.Locked;
-
     }
 
 
     void LateUpdate()
     {
-        if (target)
+        if (target && GameManager.Instance.GameHasStarted)
         {
             yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
             pitch += Input.GetAxis("Mouse Y") * mouseSensitivity * -1;

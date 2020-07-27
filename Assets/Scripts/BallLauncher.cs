@@ -27,26 +27,27 @@ public class BallLauncher : MonoBehaviour
 
     void Update()
     {
-        DrawTargetDirection();
-
-        if (Input.GetMouseButton(0) && Sphere.Instance.movement == Vector3.zero)
+        if (GameManager.Instance.GameHasStarted)
         {
-            // Show and fill power bar
-            powerBar.SetActive(true);
-            if (launchPower < 1f)
-                launchPower += Time.deltaTime / 2;
+            DrawTargetDirection();
+
+            if (Input.GetMouseButton(0) && Sphere.Instance.movement == Vector3.zero)
+            {
+                // Show and fill power bar
+                powerBar.SetActive(true);
+                if (launchPower < 1f)
+                    launchPower += Time.deltaTime / 2;
+            }
+
+            if (Input.GetMouseButtonUp(0) && ball.GetComponent<Sphere>().movement == Vector3.zero)
+            {
+                // Launch Ball
+                LaunchBall(launchPower);
+                powerBar.SetActive(false);
+            }
+
+            powerBarImage.fillAmount = launchPower;
         }
-
-        if (Input.GetMouseButtonUp(0) && ball.GetComponent<Sphere>().movement == Vector3.zero)
-        {
-            // Launch Ball
-            LaunchBall(launchPower);
-            powerBar.SetActive(false);
-        }
-
-        powerBarImage.fillAmount = launchPower;
-
-        
     }
 
     void DrawTargetDirection()

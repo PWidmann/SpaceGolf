@@ -15,7 +15,6 @@ public class FinishTrigger: VolumeTriggerBase
 
         if (isPointInsideAABB(playerGameobject.transform.position, boxBounds))
         {
-
             GameInterface.Instance.FinishPanel.SetActive(true);
         }
     }
