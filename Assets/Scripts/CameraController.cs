@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (target && GameManager.Instance.GameHasStarted)
+        if (target && GameManager.Instance.GameHasStarted && !GameManager.Instance.GameFinished)
         {
             yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
             pitch += Input.GetAxis("Mouse Y") * mouseSensitivity * -1;

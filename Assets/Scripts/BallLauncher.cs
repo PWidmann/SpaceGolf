@@ -27,7 +27,7 @@ public class BallLauncher : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.GameHasStarted)
+        if (GameManager.Instance.GameHasStarted && !GameManager.Instance.GameFinished)
         {
             DrawTargetDirection();
 

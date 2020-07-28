@@ -39,6 +39,7 @@ public class Sphere : MonoBehaviour
         {
             transform.position = checkPointPosition;
             movement = Vector3.zero;
+            GameInterface.Instance.ScreenFlash();
         }
     }
     public void AddGravity()
