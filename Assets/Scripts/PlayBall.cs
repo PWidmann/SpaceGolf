@@ -69,7 +69,6 @@ public class PlayBall : MonoBehaviour
             ballIsRolling = true;
         }
 
-
         // Rise ball if under collision box
         if (isColliding && movement == Vector3.zero)
         {

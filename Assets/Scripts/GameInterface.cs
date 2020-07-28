@@ -40,6 +40,7 @@ public class GameInterface : MonoBehaviour
         GameManager.Instance.GameHasStarted = true;
         welcomePanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
