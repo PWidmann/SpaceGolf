@@ -16,9 +16,4 @@ public class Box : MonoBehaviour
         // Get box bounding from renderer for world position
         bounds = renderer.bounds;
     }
-    
-    void FixedUpdate()
-    {
-
-    }
 }

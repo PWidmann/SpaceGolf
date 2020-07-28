@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7670839183819988274
 Transform:
@@ -128,7 +128,7 @@ GameObject:
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7670839184034205510
 Transform:
@@ -234,7 +234,7 @@ GameObject:
   m_TagString: TrackPart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7670839184222036504
 Transform:
@@ -274,7 +274,7 @@ GameObject:
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7670839184758336522
 Transform:
@@ -384,7 +384,7 @@ GameObject:
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7670839184871497039
 Transform:
@@ -494,7 +494,7 @@ GameObject:
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7670839185324557400
 Transform:
@@ -604,7 +604,7 @@ GameObject:
   m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7670839185751456626
 Transform:

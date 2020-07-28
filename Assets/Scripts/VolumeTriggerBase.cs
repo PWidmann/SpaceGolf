@@ -52,6 +52,7 @@ public class VolumeTriggerBase : MonoBehaviour
 
     public void DrawBox()
     {
+        // For editor scene view in play mode
         Debug.DrawLine(v3FrontTopLeft, v3FrontTopRight, lineColor);
         Debug.DrawLine(v3FrontTopRight, v3FrontBottomRight, lineColor);
         Debug.DrawLine(v3FrontBottomRight, v3FrontBottomLeft, lineColor);

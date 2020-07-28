@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 9088388263094851177}
   - component: {fileID: 3700486290319002667}
   - component: {fileID: 3706685416783522022}
-  - component: {fileID: 908177769312624882}
   m_Layer: 0
   m_Name: FinishBox (2)
   m_TagString: Box
@@ -96,20 +95,7 @@ MonoBehaviour:
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  bounciness: 1
---- !u!65 &908177769312624882
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 317086066604702952}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  bounciness: 0.2
 --- !u!1 &1061806000405042992
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +108,6 @@ GameObject:
   - component: {fileID: 813480762960444159}
   - component: {fileID: 8680885656741095164}
   - component: {fileID: 3045674902856759194}
-  - component: {fileID: 4881954190716375098}
   m_Layer: 0
   m_Name: FinishBox (1)
   m_TagString: Box
@@ -206,20 +191,7 @@ MonoBehaviour:
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  bounciness: 1
---- !u!65 &4881954190716375098
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061806000405042992}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  bounciness: 0.2
 --- !u!1 &1298851967390374407
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +204,6 @@ GameObject:
   - component: {fileID: 1298851967390374410}
   - component: {fileID: 1298851967390374411}
   - component: {fileID: 1298851967390374408}
-  - component: {fileID: 1298851967390374409}
   m_Layer: 0
   m_Name: Ground (2)
   m_TagString: Box
@@ -317,19 +288,6 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   bounciness: 1
---- !u!65 &1298851967390374409
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298851967390374407}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1298851967680407150
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +300,6 @@ GameObject:
   - component: {fileID: 1298851967680407189}
   - component: {fileID: 1298851967680407186}
   - component: {fileID: 1298851967680407187}
-  - component: {fileID: 1298851967680407184}
   m_Layer: 0
   m_Name: Wall (3)
   m_TagString: Box
@@ -427,19 +384,6 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   bounciness: 1
---- !u!65 &1298851967680407184
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298851967680407150}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1298851967692760854
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +396,6 @@ GameObject:
   - component: {fileID: 1298851967692760861}
   - component: {fileID: 1298851967692760858}
   - component: {fileID: 1298851967692760859}
-  - component: {fileID: 1298851967692760856}
   m_Layer: 0
   m_Name: Ground (1)
   m_TagString: Box
@@ -537,19 +480,6 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   bounciness: 1
---- !u!65 &1298851967692760856
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298851967692760854}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1298851969168311693
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,7 +492,6 @@ GameObject:
   - component: {fileID: 1298851969168311728}
   - component: {fileID: 1298851969168311729}
   - component: {fileID: 1298851969168311694}
-  - component: {fileID: 1298851969168311695}
   m_Layer: 0
   m_Name: Wall (2)
   m_TagString: Box
@@ -647,19 +576,6 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   bounciness: 1
---- !u!65 &1298851969168311695
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1298851969168311693}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1949173845168552160
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,7 +588,6 @@ GameObject:
   - component: {fileID: 3630004100836799531}
   - component: {fileID: 601918780633530382}
   - component: {fileID: 3420322552276755220}
-  - component: {fileID: 160023104826505299}
   m_Layer: 0
   m_Name: FinishBox
   m_TagString: Box
@@ -756,20 +671,7 @@ MonoBehaviour:
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  bounciness: 1
---- !u!65 &160023104826505299
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949173845168552160}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  bounciness: 0.2
 --- !u!1 &2304928942590109143
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +684,6 @@ GameObject:
   - component: {fileID: 7020512241289033800}
   - component: {fileID: 4065628153346795881}
   - component: {fileID: 4793816557605993698}
-  - component: {fileID: 8238144703128985783}
   m_Layer: 0
   m_Name: FinishBox (4)
   m_TagString: Box
@@ -866,20 +767,7 @@ MonoBehaviour:
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  bounciness: 1
---- !u!65 &8238144703128985783
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2304928942590109143}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  bounciness: 0.2
 --- !u!1 &3029450722679751171
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,7 +780,6 @@ GameObject:
   - component: {fileID: 3029450722679751198}
   - component: {fileID: 3029450722679751199}
   - component: {fileID: 3029450722679751196}
-  - component: {fileID: 3029450722679751197}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Box
@@ -977,19 +864,6 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   bounciness: 1
---- !u!65 &3029450722679751197
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3029450722679751171}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3029450723155426650
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +919,6 @@ GameObject:
   - component: {fileID: 3029450724041330695}
   - component: {fileID: 3029450724041330692}
   - component: {fileID: 3029450724041330693}
-  - component: {fileID: 3029450724041330698}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Box
@@ -1130,19 +1003,6 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   bounciness: 1
---- !u!65 &3029450724041330698
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3029450724041330696}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3311712114722418656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1015,6 @@ GameObject:
   - component: {fileID: 6763769028803335276}
   - component: {fileID: 8995344229324217956}
   - component: {fileID: 9022828432851751577}
-  - component: {fileID: 5360738138810946617}
   m_Layer: 0
   m_Name: FinishBox (3)
   m_TagString: Box
@@ -1239,20 +1098,7 @@ MonoBehaviour:
   bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  bounciness: 1
---- !u!65 &5360738138810946617
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3311712114722418656}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  bounciness: 0.2
 --- !u!1 &4786878917417651780
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1111,6 @@ GameObject:
   - component: {fileID: 9199917776417837990}
   - component: {fileID: 1833439352463365008}
   - component: {fileID: 1340007342768847490}
-  - component: {fileID: 736440286490238925}
   m_Layer: 0
   m_Name: Wall (1)
   m_TagString: Box
@@ -1350,19 +1195,6 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   bounciness: 1
---- !u!65 &736440286490238925
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4786878917417651780}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8200748271328997208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,7 +1207,6 @@ GameObject:
   - component: {fileID: 2877623631865882808}
   - component: {fileID: 7982067532113954193}
   - component: {fileID: 7862467147325868613}
-  - component: {fileID: 4652313788429560691}
   m_Layer: 0
   m_Name: Ground (3)
   m_TagString: Box
@@ -1460,16 +1291,3 @@ MonoBehaviour:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   bounciness: 1
---- !u!65 &4652313788429560691
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8200748271328997208}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

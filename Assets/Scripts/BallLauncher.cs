@@ -13,13 +13,13 @@ public class BallLauncher : MonoBehaviour
     GameObject powerBar;
     Image powerBarImage;
 
-    Sphere ball;
+    PlayBall ball;
     Vector3 pushVector;
     float launchPower = 0f;
 
     void Start()
     {
-        ball = ballObject.GetComponent<Sphere>();
+        ball = ballObject.GetComponent<PlayBall>();
 
         powerBar = GameInterface.Instance.PowerBar;
         powerBarImage = GameInterface.Instance.PowerBarImage;
@@ -31,7 +31,7 @@ public class BallLauncher : MonoBehaviour
         {
             DrawTargetDirection();
 
-            if (Input.GetMouseButton(0) && Sphere.Instance.movement == Vector3.zero)
+            if (Input.GetMouseButton(0) && PlayBall.Instance.movement == Vector3.zero)
             {
                 // Show and fill power bar
                 powerBar.SetActive(true);
@@ -39,7 +39,7 @@ public class BallLauncher : MonoBehaviour
                     launchPower += Time.deltaTime / 2;
             }
 
-            if (Input.GetMouseButtonUp(0) && ball.GetComponent<Sphere>().movement == Vector3.zero)
+            if (Input.GetMouseButtonUp(0) && ball.GetComponent<PlayBall>().movement == Vector3.zero)
             {
                 // Launch Ball
                 LaunchBall(launchPower);
@@ -53,7 +53,7 @@ public class BallLauncher : MonoBehaviour
     void DrawTargetDirection()
     {
         // Show and rotate target arrow
-        if (Sphere.Instance.movement == Vector3.zero)
+        if (PlayBall.Instance.movement == Vector3.zero)
         {
             targetPlane.SetActive(true);
             
@@ -72,7 +72,7 @@ public class BallLauncher : MonoBehaviour
 
         pushVector = (target.transform.position - ball.transform.position).normalized * power;
         pushVector.y = 0f;
-        Sphere.Instance.pushVector = pushVector;
+        PlayBall.Instance.pushVector = pushVector;
 
         launchPower = 0f;
     }

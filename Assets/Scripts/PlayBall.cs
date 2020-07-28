@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sphere : MonoBehaviour
+public class PlayBall : MonoBehaviour
 {
-    public static Sphere Instance;
+    public static PlayBall Instance;
 
     public float bounciness = 0.7f;
     public float gravity = -9.81f;

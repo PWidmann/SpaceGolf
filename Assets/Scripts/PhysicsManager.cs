@@ -8,22 +8,27 @@ using UnityEngine;
 
 public class PhysicsManager : MonoBehaviour
 {
-    public Sphere ball;
+    public PlayBall ball;
     public GameObject playerStartPosition;
 
     [Header("Course Prefabs")]
     public GameObject[] trackParts;
+    public GameObject[] cylinders;
 
-    // Bounding boxes
+    // Bounding Volumes
     GameObject parentObject;
     private List<Box> boxList = new List<Box>();
-    
+    private List<Cylinder> cylinderList = new List<Cylinder>();
+
     //Collision
     Vector3 normalVector;
     bool collisionHappened;
 
     void Start()
     {
+        trackParts = GameObject.FindGameObjectsWithTag("TrackPart");
+        cylinders = GameObject.FindGameObjectsWithTag("Cylinder");
+
         // Make bounding box list
         foreach (GameObject trackObject in trackParts)
         {
@@ -36,6 +41,12 @@ public class PhysicsManager : MonoBehaviour
             }
         }
 
+        // Create cylinder bounds list
+        foreach (GameObject cylinder in cylinders)
+        {
+            cylinderList.Add(cylinder.GetComponent<Cylinder>());
+        }
+
         ball.transform.position = playerStartPosition.transform.position;
     }
 
@@ -46,6 +57,7 @@ public class PhysicsManager : MonoBehaviour
         {
             ball.transform.position = playerStartPosition.transform.position;
             GameInterface.Instance.FinishPanel.SetActive(false);
+            GameManager.Instance.GameFinished = false;
         }
             
     }
@@ -59,16 +71,17 @@ public class PhysicsManager : MonoBehaviour
 
         // Gravity
         if (!ball.isColliding)
-            ball.GetComponent<Sphere>().AddGravity();
+            ball.GetComponent<PlayBall>().AddGravity();
 
         // Move ball
-        ball.GetComponent<Sphere>().Move();
+        ball.GetComponent<PlayBall>().Move();
     }
 
     void CheckForCollisions()
     {
         collisionHappened = false;
 
+        // Box Collisions
         foreach (Box box in boxList)
         {
             if (isSphereIntersectingAABB(ball.transform.position, box.bounds))
@@ -76,9 +89,31 @@ public class PhysicsManager : MonoBehaviour
                 ball.isColliding = true;
 
                 if (ball.canChangeMovement == true)
-                    ball.ChangeMovementOnCollision(calcNormalVector(ball, box.bounds), ball.bounciness * box.bounciness);
+                    ball.ChangeMovementOnCollision(calcNormalVectorBox(ball, box.bounds), ball.bounciness * box.bounciness);
 
                 collisionHappened = true; 
+                ball.canChangeMovement = false; // Only one movement change per collision
+                break;
+            }
+        }
+
+        // Cylinder Collisions
+        foreach (Cylinder cylinder in cylinderList)
+        {
+            if (isSphereIntersectingCylinder(ball.transform.position, cylinder))
+            {
+                ball.isColliding = true;
+
+
+
+                if (ball.canChangeMovement == true)
+                    ball.ChangeMovementOnCollision(calcNormalVectorCylinder(ball, cylinder), ball.bounciness * cylinder.bounciness);
+
+                // Clamp speed at 35 (max BallLauncher power)
+                if (ball.movement.magnitude > 35f)
+                    ball.movement = ball.movement.normalized * 35f;
+
+                collisionHappened = true;
                 ball.canChangeMovement = false; // Only one movement change per collision
                 break;
             }
@@ -107,7 +142,27 @@ public class PhysicsManager : MonoBehaviour
         return distance <= ball.radius;
     }
 
-    private Vector3 calcNormalVector(Sphere sphere, Bounds box)
+    private bool isSphereIntersectingCylinder(Vector3 ball, Cylinder cylinder)
+    {
+        Vector3 vectorToCenter = ball - cylinder.position;
+        Vector2 v2distance = new Vector2(vectorToCenter.x, vectorToCenter.z);
+        float distance = v2distance.magnitude;
+
+        if ((distance < PlayBall.Instance.radius + cylinder.radius) &&
+            (ball.y < cylinder.position.y + cylinder.height / 2 + PlayBall.Instance.radius) &&
+            (ball.y > cylinder.position.y - cylinder.height / 2 - PlayBall.Instance.radius))
+        {
+            return true;
+
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    private Vector3 calcNormalVectorBox(PlayBall sphere, Bounds box)
     {
         // Ball is already colliding with the box when this code runs
         // Calculate normals from positions
@@ -156,6 +211,26 @@ public class PhysicsManager : MonoBehaviour
         return normalVector;
     }
 
+    private Vector3 calcNormalVectorCylinder(PlayBall ball, Cylinder cylinder)
+    {
+        // Ball is already colliding with the Cylinder when this code runs
+
+        // direction vector from the center of the cylinder to the center of the ball
+        Vector3 heading = ball.transform.position - cylinder.position;
+        heading.y = 0;
+        normalVector = heading.normalized; // Gets pushed away with speed 35
+
+        //If ball is on top
+        if (ball.transform.position.y > cylinder.position.y + cylinder.height / 2)
+            normalVector = Vector3.up;
+
+        //If ball is under cylinder
+        if (ball.transform.position.y < cylinder.position.y - cylinder.height / 2)
+            return Vector3.down;
+
+        return normalVector;
+    }
+
     private void HandlingBallRollGravity()
     {
         bool isOverGround = false;
@@ -165,7 +240,17 @@ public class PhysicsManager : MonoBehaviour
             foreach (Box box in boxList)
             {
                 // Check if ball is over a box
-                if (isSphereIntersectingAABB(ball.transform.position + new Vector3(0, -0.3f, 0), box.bounds))
+                if (isSphereIntersectingAABB(ball.transform.position + new Vector3(0, -0.1f, 0), box.bounds))
+                {
+                    isOverGround = true;
+                    break;
+                }
+            }
+
+            foreach (Cylinder cylinder in cylinderList)
+            {
+                // Check if ball is over a box
+                if (isSphereIntersectingCylinder(ball.transform.position + new Vector3(0, -0.1f, 0), cylinder))
                 {
                     isOverGround = true;
                     break;
