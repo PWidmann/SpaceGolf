@@ -26,6 +26,7 @@ public class PhysicsManager : MonoBehaviour
 
     void Start()
     {
+        // Find all collision objects
         trackParts = GameObject.FindGameObjectsWithTag("TrackPart");
         cylinders = GameObject.FindGameObjectsWithTag("Cylinder");
 
@@ -128,8 +129,6 @@ public class PhysicsManager : MonoBehaviour
             ball.isColliding = false;
             ball.canChangeMovement = true;
         }
-
-
     }
 
     private bool isSphereIntersectingAABB(Vector3 spherePosition, Bounds box)
@@ -153,6 +152,7 @@ public class PhysicsManager : MonoBehaviour
         Vector2 v2distance = new Vector2(vectorToCenter.x, vectorToCenter.z);
         float distance = v2distance.magnitude;
 
+        // Check radius distance and height
         if ((distance < PlayBall.Instance.radius + cylinder.radius) &&
             (ball.y < cylinder.position.y + cylinder.height / 2 + PlayBall.Instance.radius) &&
             (ball.y > cylinder.position.y - cylinder.height / 2 - PlayBall.Instance.radius))
@@ -256,16 +256,14 @@ public class PhysicsManager : MonoBehaviour
             }
         }
 
-
         if (isOverGround == false && ball.movement != Vector3.zero)
         {
             ball.gravityActive = true;
             ball.ballIsRolling = false;
         }
 
-
         // Handling ball roll slowing
         if (!ball.gravityActive)
-            ball.movement *= 0.999f; // Good value for Fixed Timestep 0.005
+            ball.movement *= 0.999f; // Good value for Fixed Timestep 0.001
     }
 }

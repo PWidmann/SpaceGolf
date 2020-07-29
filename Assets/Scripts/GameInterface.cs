@@ -22,7 +22,7 @@ public class GameInterface : MonoBehaviour
     private int screenFlashAlpha = 0;
     private bool isScreenFlashing = false;
     
-
+    // Properties
     public GameObject PowerBar { get => powerBar; set => powerBar = value; }
     public Image PowerBarImage { get => powerBarImage; set => powerBarImage = value; }
     public GameObject WelcomePanel1 { get => welcomePanel; set => welcomePanel = value; }
@@ -43,7 +43,6 @@ public class GameInterface : MonoBehaviour
         welcomePanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
     }
 
     private void Update()
@@ -64,8 +63,6 @@ public class GameInterface : MonoBehaviour
 
             screenFlashImage.GetComponent<Image>().color = new Color32(255, 255, 225, (byte)screenFlashAlpha);
         }
-
-        
     }
 
     private void SwingText()

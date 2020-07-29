@@ -26,10 +26,10 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-        audioSourceFX.volume = 0.8f;
-
         if (soundPlayTimer >= 0)
+        {
             soundPlayTimer -= Time.deltaTime;
+        }
         else
         {
             soundPlayTimer = 0.15f;
@@ -45,12 +45,5 @@ public class SoundManager : MonoBehaviour
             audioSourceFX.PlayOneShot(audioClips[index]);
             canPlaySound = false;
         }
-        
-    }
-
-    public float Volume(float value)
-    {
-        float soundVolume = (value / 100);
-        return soundVolume;
     }
 }

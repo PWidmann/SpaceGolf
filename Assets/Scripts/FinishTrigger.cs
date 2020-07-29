@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FinishTrigger: VolumeTriggerBase
 {
-
     void Update()
     {
         position = transform.position;

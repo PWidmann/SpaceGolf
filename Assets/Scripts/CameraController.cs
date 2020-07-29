@@ -25,6 +25,7 @@ public class CameraController : MonoBehaviour
     Vector3 rotationSmoothVelocity;
     Vector3 currentRotation;
     Vector3 targetRotation;
+    [HideInInspector]
     public float yaw;
     float pitch;
 

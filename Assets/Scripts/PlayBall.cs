@@ -10,12 +10,17 @@ public class PlayBall : MonoBehaviour
     public float bounciness = 0.7f;
     public float gravity = -9.81f;
 
+    [HideInInspector]
     public float radius;
+    [HideInInspector]
     public Vector3 movement;
+    [HideInInspector]
     public Vector3 pushVector;
 
     // For physics
+    [HideInInspector]
     public bool isColliding = false;
+    [HideInInspector]
     public bool canChangeMovement = false;
     public bool gravityActive = true;
     public bool ballIsRolling = false;

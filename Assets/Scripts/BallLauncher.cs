@@ -13,9 +13,11 @@ public class BallLauncher : MonoBehaviour
     GameObject powerBar;
     Image powerBarImage;
 
-    PlayBall ball;
+    
     Vector3 pushVector;
     float launchPower = 0f;
+
+    PlayBall ball;
 
     void Start()
     {
@@ -57,7 +59,6 @@ public class BallLauncher : MonoBehaviour
         if (PlayBall.Instance.movement == Vector3.zero)
         {
             targetPlane.SetActive(true);
-            
             targetPlane.transform.rotation = Quaternion.Euler(new Vector3(0, CameraController.Instance.yaw + 180, 0));
         }
         else
