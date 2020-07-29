@@ -7,25 +7,27 @@ public class GameInterface : MonoBehaviour
 {
     public static GameInterface Instance;
 
-    [Header("Ball Power UI")]
+    [Header("Ball UI")]
     [SerializeField] GameObject powerBar;
     [SerializeField] Image powerBarImage;
+    [SerializeField] GameObject swingText;
 
     [Header("Game Interface Panels")]
     [SerializeField] GameObject welcomePanel;
     [SerializeField] GameObject finishPanel;
+    [SerializeField] Text finishText;
 
     [Header("Screen Flash")]
     [SerializeField] Image screenFlashImage;
     private int screenFlashAlpha = 0;
     private bool isScreenFlashing = false;
-    private Color tempColor;
     
 
     public GameObject PowerBar { get => powerBar; set => powerBar = value; }
     public Image PowerBarImage { get => powerBarImage; set => powerBarImage = value; }
     public GameObject WelcomePanel1 { get => welcomePanel; set => welcomePanel = value; }
     public GameObject FinishPanel { get => finishPanel; set => finishPanel = value; }
+    public Text FinishText { get => finishText; set => finishText = value; }
 
     private void Start()
     {
@@ -41,10 +43,13 @@ public class GameInterface : MonoBehaviour
         welcomePanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        
     }
 
     private void Update()
     {
+        SwingText();
+
         // Screen flash
         if (isScreenFlashing)
         {
@@ -61,6 +66,19 @@ public class GameInterface : MonoBehaviour
         }
 
         
+    }
+
+    private void SwingText()
+    {
+        if (GameManager.Instance.GameHasStarted && !GameManager.Instance.GameFinished)
+        {
+            swingText.SetActive(true);
+            swingText.GetComponent<Text>().text = "Swings: " + GameManager.Instance.RoundSwings;
+        }
+        else
+        {
+            swingText.SetActive(false);
+        }
     }
 
     public void ScreenFlash()

@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
 
     private bool gameHasStarted = false;
     private bool gameFinished = false;
-    private int gameRounds = 0;
+    private int roundSwings = 0;
 
     public bool GameHasStarted { get => gameHasStarted; set => gameHasStarted = value; }
     public bool GameFinished { get => gameFinished; set => gameFinished = value; }
-    public int GameRounds { get => gameRounds; set => gameRounds = value; }
+    public int RoundSwings { get => roundSwings; set => roundSwings = value; }
 
     void Start()
     {

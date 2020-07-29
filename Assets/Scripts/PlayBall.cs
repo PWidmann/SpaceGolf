@@ -30,6 +30,8 @@ public class PlayBall : MonoBehaviour
 
         renderer = GetComponent<Renderer>();
         radius = renderer.bounds.extents.x;
+
+        
     }
     
     void FixedUpdate()

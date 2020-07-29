@@ -24,6 +24,8 @@ public class PhysicsManager : MonoBehaviour
     Vector3 normalVector;
     bool collisionHappened;
 
+    bool afterFirstFrame = false;
+
     void Start()
     {
         trackParts = GameObject.FindGameObjectsWithTag("TrackPart");
@@ -48,6 +50,7 @@ public class PhysicsManager : MonoBehaviour
         }
 
         ball.transform.position = playerStartPosition.transform.position;
+        
     }
 
     private void Update()
@@ -58,8 +61,10 @@ public class PhysicsManager : MonoBehaviour
             ball.transform.position = playerStartPosition.transform.position;
             GameInterface.Instance.FinishPanel.SetActive(false);
             GameManager.Instance.GameFinished = false;
+            GameManager.Instance.RoundSwings = 0;
+            GameInterface.Instance.ScreenFlash();
+            CameraController.Instance.yaw = 0;
         }
-            
     }
 
     private void FixedUpdate()

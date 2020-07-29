@@ -31,7 +31,7 @@ public class BallLauncher : MonoBehaviour
         {
             DrawTargetDirection();
 
-            if (Input.GetMouseButton(0) && PlayBall.Instance.movement == Vector3.zero)
+            if (Input.GetMouseButton(0) && PlayBall.Instance.movement == Vector3.zero && GameManager.Instance.GameHasStarted)
             {
                 // Show and fill power bar
                 powerBar.SetActive(true);
@@ -39,7 +39,7 @@ public class BallLauncher : MonoBehaviour
                     launchPower += Time.deltaTime / 2;
             }
 
-            if (Input.GetMouseButtonUp(0) && ball.GetComponent<PlayBall>().movement == Vector3.zero)
+            if (Input.GetMouseButtonUp(0) && ball.GetComponent<PlayBall>().movement == Vector3.zero && GameManager.Instance.GameHasStarted && powerBar.activeSelf == true)
             {
                 // Launch Ball
                 LaunchBall(launchPower);
@@ -75,5 +75,9 @@ public class BallLauncher : MonoBehaviour
         PlayBall.Instance.pushVector = pushVector;
 
         launchPower = 0f;
+
+        
+        GameManager.Instance.RoundSwings++;
+        Debug.Log("Ball is launched!");
     }
 }

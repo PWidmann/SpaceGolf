@@ -27,21 +27,18 @@ public class CameraController : MonoBehaviour
     Vector3 targetRotation;
     public float yaw;
     float pitch;
-    Vector2 saveMousePosition;
-
-    private bool cameraRotationActive = false;
 
     private void Start()
     {
         if (Instance == null)
             Instance = this;
 
-        currentCameraZoom = 2;
-        targetCameraZoom = 2;
+        currentCameraZoom = 4;
+        targetCameraZoom = 4;
 
         // Starting camera rotation
-        yaw = 50;
-        pitch = 20;
+        yaw = 0;
+        pitch = 30;
         targetRotation = new Vector3(pitch, yaw);
 
         // Camera smoothing depends on timescale
