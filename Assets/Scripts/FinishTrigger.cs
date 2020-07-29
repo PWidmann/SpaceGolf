@@ -18,6 +18,11 @@ public class FinishTrigger: VolumeTriggerBase
             GameInterface.Instance.FinishPanel.SetActive(true);
             GameInterface.Instance.FinishText.text = "You have finished the course in " + GameManager.Instance.RoundSwings + " swings";
             GameManager.Instance.GameFinished = true;
+            if (!triggered)
+            {
+                SoundManager.instance.PlaySound(2);
+                triggered = true;
+            }
         }
     }
 }

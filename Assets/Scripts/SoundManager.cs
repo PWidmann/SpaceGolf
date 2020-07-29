@@ -6,9 +6,13 @@ using UnityEngine.UI;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
-    public AudioClip ballCollision;
-    public AudioClip buttonClick;
+
+    [Range(0, 1)]
+    public float volume = 0.6f;
+    public AudioClip[] audioClips;
     [SerializeField] AudioSource audioSourceFX;
+    private float soundPlayTimer = 0.15f;
+    private bool canPlaySound = true;
     
     void Start()
     {
@@ -23,12 +27,25 @@ public class SoundManager : MonoBehaviour
     private void Update()
     {
         audioSourceFX.volume = 0.8f;
+
+        if (soundPlayTimer >= 0)
+            soundPlayTimer -= Time.deltaTime;
+        else
+        {
+            soundPlayTimer = 0.15f;
+            canPlaySound = true;
+        }
     }
 
 
     public void PlaySound(int index)
     {
-        audioSourceFX.PlayOneShot(ballCollision);
+        if (canPlaySound)
+        {
+            audioSourceFX.PlayOneShot(audioClips[index]);
+            canPlaySound = false;
+        }
+        
     }
 
     public float Volume(float value)

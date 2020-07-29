@@ -30,8 +30,6 @@ public class PlayBall : MonoBehaviour
 
         renderer = GetComponent<Renderer>();
         radius = renderer.bounds.extents.x;
-
-        
     }
     
     void FixedUpdate()
@@ -74,9 +72,8 @@ public class PlayBall : MonoBehaviour
         // Rise ball if under collision box
         if (isColliding && movement == Vector3.zero)
         {
-            transform.position += new Vector3(0, 0.2f, 0) * Time.deltaTime;
+            transform.position += new Vector3(0, 0.2f, 0) * Time.fixedDeltaTime;
         }
-        
     }
 
     public void ChangeMovementOnCollision(Vector3 normal, float bounciness)

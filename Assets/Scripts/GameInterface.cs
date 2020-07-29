@@ -50,7 +50,7 @@ public class GameInterface : MonoBehaviour
     {
         SwingText();
 
-        // Screen flash
+        // Screen flashing
         if (isScreenFlashing)
         {
             if (screenFlashAlpha > 0f)

@@ -14,7 +14,6 @@ public class Cylinder : MonoBehaviour
     
     new Renderer renderer;
 
-
     void Start()
     {
         renderer = GetComponent<Renderer>();

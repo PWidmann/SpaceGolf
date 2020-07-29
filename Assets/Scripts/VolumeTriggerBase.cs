@@ -15,7 +15,9 @@ public class VolumeTriggerBase : MonoBehaviour
     public Color lineColor;
 
     public Bounds boxBounds;
+    public bool triggered = false;
     
+    // For drawing box in scene view in play mode
     [HideInInspector]
     public Vector3 position;
     [HideInInspector]

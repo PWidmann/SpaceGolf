@@ -13,7 +13,7 @@ public class Box : MonoBehaviour
     {
         renderer = GetComponent<Renderer>();
 
-        // Get box bounding from renderer for world position
+        // Get box boundings from renderer
         bounds = renderer.bounds;
     }
 }

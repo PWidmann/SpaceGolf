@@ -29,6 +29,7 @@ public class BallLauncher : MonoBehaviour
     {
         if (GameManager.Instance.GameHasStarted && !GameManager.Instance.GameFinished)
         {
+            // Direction arrow
             DrawTargetDirection();
 
             if (Input.GetMouseButton(0) && PlayBall.Instance.movement == Vector3.zero && GameManager.Instance.GameHasStarted)
@@ -52,7 +53,7 @@ public class BallLauncher : MonoBehaviour
 
     void DrawTargetDirection()
     {
-        // Show and rotate target arrow
+        // Show and rotate direction arrow
         if (PlayBall.Instance.movement == Vector3.zero)
         {
             targetPlane.SetActive(true);
@@ -67,17 +68,15 @@ public class BallLauncher : MonoBehaviour
 
     void LaunchBall(float power)
     {
-        // 35 Power max
+        // Power max = 35
         power *= 35;
 
         pushVector = (target.transform.position - ball.transform.position).normalized * power;
         pushVector.y = 0f;
         PlayBall.Instance.pushVector = pushVector;
-
         launchPower = 0f;
 
-        
         GameManager.Instance.RoundSwings++;
-        Debug.Log("Ball is launched!");
+        SoundManager.instance.PlaySound(1);
     }
 }

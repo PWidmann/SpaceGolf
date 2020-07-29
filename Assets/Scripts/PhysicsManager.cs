@@ -24,8 +24,6 @@ public class PhysicsManager : MonoBehaviour
     Vector3 normalVector;
     bool collisionHappened;
 
-    bool afterFirstFrame = false;
-
     void Start()
     {
         trackParts = GameObject.FindGameObjectsWithTag("TrackPart");
@@ -49,8 +47,8 @@ public class PhysicsManager : MonoBehaviour
             cylinderList.Add(cylinder.GetComponent<Cylinder>());
         }
 
+        // Set ball to startposition
         ball.transform.position = playerStartPosition.transform.position;
-        
     }
 
     private void Update()
@@ -96,7 +94,8 @@ public class PhysicsManager : MonoBehaviour
                 if (ball.canChangeMovement == true)
                     ball.ChangeMovementOnCollision(calcNormalVectorBox(ball, box.bounds), ball.bounciness * box.bounciness);
 
-                collisionHappened = true; 
+                collisionHappened = true;
+                SoundManager.instance.PlaySound(1);
                 ball.canChangeMovement = false; // Only one movement change per collision
                 break;
             }
@@ -109,8 +108,6 @@ public class PhysicsManager : MonoBehaviour
             {
                 ball.isColliding = true;
 
-
-
                 if (ball.canChangeMovement == true)
                     ball.ChangeMovementOnCollision(calcNormalVectorCylinder(ball, cylinder), ball.bounciness * cylinder.bounciness);
 
@@ -119,6 +116,7 @@ public class PhysicsManager : MonoBehaviour
                     ball.movement = ball.movement.normalized * 35f;
 
                 collisionHappened = true;
+                SoundManager.instance.PlaySound(1);
                 ball.canChangeMovement = false; // Only one movement change per collision
                 break;
             }
@@ -130,6 +128,8 @@ public class PhysicsManager : MonoBehaviour
             ball.isColliding = false;
             ball.canChangeMovement = true;
         }
+
+
     }
 
     private bool isSphereIntersectingAABB(Vector3 spherePosition, Bounds box)
@@ -158,20 +158,17 @@ public class PhysicsManager : MonoBehaviour
             (ball.y > cylinder.position.y - cylinder.height / 2 - PlayBall.Instance.radius))
         {
             return true;
-
         }
         else
         {
             return false;
         }
-
     }
 
     private Vector3 calcNormalVectorBox(PlayBall sphere, Bounds box)
     {
         // Ball is already colliding with the box when this code runs
         // Calculate normals from positions
-
 
         // Ball colliding in x direction
         if ((sphere.transform.position.z + (ball.movement.z * Time.fixedDeltaTime) > box.min.z - ball.radius) && 
@@ -228,10 +225,6 @@ public class PhysicsManager : MonoBehaviour
         //If ball is on top
         if (ball.transform.position.y > cylinder.position.y + cylinder.height / 2)
             normalVector = Vector3.up;
-
-        //If ball is under cylinder
-        if (ball.transform.position.y < cylinder.position.y - cylinder.height / 2)
-            return Vector3.down;
 
         return normalVector;
     }
