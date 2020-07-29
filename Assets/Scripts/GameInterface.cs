@@ -14,6 +14,7 @@ public class GameInterface : MonoBehaviour
 
     [Header("Game Interface Panels")]
     [SerializeField] GameObject welcomePanel;
+    public GameObject escapeMenu;
     [SerializeField] GameObject finishPanel;
     [SerializeField] Text finishText;
 
@@ -22,6 +23,12 @@ public class GameInterface : MonoBehaviour
     private int screenFlashAlpha = 0;
     private bool isScreenFlashing = false;
     
+    //Sound
+    [Header("Sound")]
+    [SerializeField] Slider soundSlider;
+    [SerializeField] Text soundValueText;
+
+
     // Properties
     public GameObject PowerBar { get => powerBar; set => powerBar = value; }
     public Image PowerBarImage { get => powerBarImage; set => powerBarImage = value; }
@@ -39,7 +46,7 @@ public class GameInterface : MonoBehaviour
 
     public void StartGame()
     {
-        GameManager.Instance.GameHasStarted = true;
+        GameManager.GameHasStarted = true;
         welcomePanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -48,6 +55,9 @@ public class GameInterface : MonoBehaviour
     private void Update()
     {
         SwingText();
+
+        GameManager.SoundVolume = soundSlider.value;
+        soundValueText.text = GameManager.SoundVolume.ToString() + "%";
 
         // Screen flashing
         if (isScreenFlashing)
@@ -63,14 +73,35 @@ public class GameInterface : MonoBehaviour
 
             screenFlashImage.GetComponent<Image>().color = new Color32(255, 255, 225, (byte)screenFlashAlpha);
         }
+
+        //Escape Menu
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            EscapeMenu();
+
+            GameManager.InEscapeMenu = !GameManager.InEscapeMenu;
+
+            if (GameManager.InEscapeMenu)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+                
+        }
+            
     }
 
     private void SwingText()
     {
-        if (GameManager.Instance.GameHasStarted && !GameManager.Instance.GameFinished)
+        if (GameManager.GameHasStarted && !GameManager.GameFinished)
         {
             swingText.SetActive(true);
-            swingText.GetComponent<Text>().text = "Swings: " + GameManager.Instance.RoundSwings;
+            swingText.GetComponent<Text>().text = "Swings: " + GameManager.RoundSwings;
         }
         else
         {
@@ -82,5 +113,10 @@ public class GameInterface : MonoBehaviour
     {
         isScreenFlashing = true;
         screenFlashAlpha = 255;
+    }
+
+    public void EscapeMenu()
+    {
+        escapeMenu.SetActive(!escapeMenu.activeSelf);
     }
 }

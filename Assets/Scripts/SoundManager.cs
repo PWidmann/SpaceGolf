@@ -35,6 +35,8 @@ public class SoundManager : MonoBehaviour
             soundPlayTimer = 0.15f;
             canPlaySound = true;
         }
+
+        audioSourceFX.volume = GameManager.SoundVolume / 100;
     }
 
 

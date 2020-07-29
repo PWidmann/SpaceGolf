@@ -10,6 +10,7 @@ public class PhysicsManager : MonoBehaviour
 {
     public PlayBall ball;
     public GameObject playerStartPosition;
+    public FinishTrigger finishTrigger;
 
     [Header("Course Prefabs")]
     public GameObject[] trackParts;
@@ -57,13 +58,9 @@ public class PhysicsManager : MonoBehaviour
         // Reset player to start
         if (Input.GetKeyDown(KeyCode.R) && ball.movement == Vector3.zero)
         {
-            ball.transform.position = playerStartPosition.transform.position;
-            GameInterface.Instance.FinishPanel.SetActive(false);
-            GameManager.Instance.GameFinished = false;
-            GameManager.Instance.RoundSwings = 0;
-            GameInterface.Instance.ScreenFlash();
-            CameraController.Instance.yaw = 0;
+            ResetGame();
         }
+
     }
 
     private void FixedUpdate()
@@ -79,6 +76,26 @@ public class PhysicsManager : MonoBehaviour
 
         // Move ball
         ball.GetComponent<PlayBall>().Move();
+    }
+
+    public void ResetGame()
+    {
+        ball.transform.position = playerStartPosition.transform.position;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        GameInterface.Instance.FinishPanel.SetActive(false);
+        GameInterface.Instance.escapeMenu.SetActive(false);
+        GameInterface.Instance.ScreenFlash();
+        GameManager.GameFinished = false;
+        GameManager.RoundSwings = 0;
+        GameManager.InEscapeMenu = false;
+        CameraController.Instance.yaw = 0;
+        finishTrigger.triggered = false;
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     void CheckForCollisions()

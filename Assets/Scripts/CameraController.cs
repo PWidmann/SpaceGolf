@@ -50,13 +50,16 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (target && GameManager.Instance.GameHasStarted && !GameManager.Instance.GameFinished)
+        if (target && GameManager.GameHasStarted && !GameManager.GameFinished)
         {
-            // Camera rotation
-            yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-            pitch += Input.GetAxis("Mouse Y") * mouseSensitivity * -1;
-            pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
-            targetRotation = new Vector3(pitch, yaw);
+            if (!GameManager.InEscapeMenu)
+            {
+                // Camera rotation
+                yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
+                pitch += Input.GetAxis("Mouse Y") * mouseSensitivity * -1;
+                pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
+                targetRotation = new Vector3(pitch, yaw);
+            }
 
             currentRotation = Vector3.SmoothDamp(currentRotation, targetRotation, ref rotationSmoothVelocity, rotationSmoothTime);
             transform.eulerAngles = currentRotation;

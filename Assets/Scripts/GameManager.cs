@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    private static bool gameHasStarted = false;
+    private static bool gameFinished = false;
+    private static bool inEscapeMenu = false;
+    private static float soundVolume = 50f;
+    private static int roundSwings = 0;
 
-    private bool gameHasStarted = false;
-    private bool gameFinished = false;
-    private int roundSwings = 0;
-
-    public bool GameHasStarted { get => gameHasStarted; set => gameHasStarted = value; }
-    public bool GameFinished { get => gameFinished; set => gameFinished = value; }
-    public int RoundSwings { get => roundSwings; set => roundSwings = value; }
-
-    void Start()
-    {
-        if (Instance == null || Instance != this)
-            Instance = this;
-    }
+    public static bool GameHasStarted { get => gameHasStarted; set => gameHasStarted = value; }
+    public static bool GameFinished { get => gameFinished; set => gameFinished = value; }
+    public static int RoundSwings { get => roundSwings; set => roundSwings = value; }
+    public static bool InEscapeMenu { get => inEscapeMenu; set => inEscapeMenu = value; }
+    public static float SoundVolume { get => soundVolume; set => soundVolume = value; }
 }

@@ -29,12 +29,12 @@ public class BallLauncher : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.GameHasStarted && !GameManager.Instance.GameFinished)
+        if (GameManager.GameHasStarted && !GameManager.GameFinished && !GameManager.InEscapeMenu)
         {
             // Direction arrow
             DrawTargetDirection();
 
-            if (Input.GetMouseButton(0) && PlayBall.Instance.movement == Vector3.zero && GameManager.Instance.GameHasStarted)
+            if (Input.GetMouseButton(0) && PlayBall.Instance.movement == Vector3.zero && GameManager.GameHasStarted)
             {
                 // Show and fill power bar
                 powerBar.SetActive(true);
@@ -42,7 +42,7 @@ public class BallLauncher : MonoBehaviour
                     launchPower += Time.deltaTime / 2;
             }
 
-            if (Input.GetMouseButtonUp(0) && ball.GetComponent<PlayBall>().movement == Vector3.zero && GameManager.Instance.GameHasStarted && powerBar.activeSelf == true)
+            if (Input.GetMouseButtonUp(0) && ball.GetComponent<PlayBall>().movement == Vector3.zero && GameManager.GameHasStarted && powerBar.activeSelf == true)
             {
                 // Launch Ball
                 LaunchBall(launchPower);
@@ -77,7 +77,7 @@ public class BallLauncher : MonoBehaviour
         PlayBall.Instance.pushVector = pushVector;
         launchPower = 0f;
 
-        GameManager.Instance.RoundSwings++;
+        GameManager.RoundSwings++;
         SoundManager.instance.PlaySound(1);
     }
 }
