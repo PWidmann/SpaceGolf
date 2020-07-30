@@ -55,8 +55,8 @@ public class CameraController : MonoBehaviour
             if (!GameManager.InEscapeMenu)
             {
                 // Camera rotation
-                yaw += Input.GetAxis("Mouse X") * mouseSensitivity;
-                pitch += Input.GetAxis("Mouse Y") * mouseSensitivity * -1;
+                yaw += Input.GetAxis("Mouse X") * GameManager.MouseSensitivity;
+                pitch += Input.GetAxis("Mouse Y") * GameManager.MouseSensitivity * -1;
                 pitch = Mathf.Clamp(pitch, pitchMinMax.x, pitchMinMax.y);
                 targetRotation = new Vector3(pitch, yaw);
             }

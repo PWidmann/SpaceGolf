@@ -28,6 +28,11 @@ public class GameInterface : MonoBehaviour
     [SerializeField] Slider soundSlider;
     [SerializeField] Text soundValueText;
 
+    //Sound
+    [Header("Mouse Sensitivity")]
+    [SerializeField] Slider sensitivitySlider;
+    [SerializeField] Text sensitivityValueText;
+
 
     // Properties
     public GameObject PowerBar { get => powerBar; set => powerBar = value; }
@@ -58,6 +63,9 @@ public class GameInterface : MonoBehaviour
 
         GameManager.SoundVolume = soundSlider.value;
         soundValueText.text = GameManager.SoundVolume.ToString() + "%";
+
+        GameManager.MouseSensitivity = sensitivitySlider.value;
+        sensitivityValueText.text = GameManager.MouseSensitivity.ToString();
 
         // Screen flashing
         if (isScreenFlashing)
