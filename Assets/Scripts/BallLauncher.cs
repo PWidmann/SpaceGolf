@@ -12,11 +12,8 @@ public class BallLauncher : MonoBehaviour
 
     GameObject powerBar;
     Image powerBarImage;
-
-    
     Vector3 pushVector;
     float launchPower = 0f;
-
     PlayBall ball;
 
     void Start()
@@ -36,7 +33,7 @@ public class BallLauncher : MonoBehaviour
 
             if (Input.GetMouseButton(0) && PlayBall.Instance.movement == Vector3.zero && GameManager.GameHasStarted)
             {
-                // Show and fill power bar
+                // Set and fill power bar
                 powerBar.SetActive(true);
                 if (launchPower < 1f)
                     launchPower += Time.deltaTime / 2;
@@ -49,6 +46,7 @@ public class BallLauncher : MonoBehaviour
                 powerBar.SetActive(false);
             }
 
+            // Update power bar image
             powerBarImage.fillAmount = launchPower;
         }
     }

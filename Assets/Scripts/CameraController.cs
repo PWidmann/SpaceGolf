@@ -20,14 +20,15 @@ public class CameraController : MonoBehaviour
     private float cameraSmoothing = 0.05f;
 
     //Camera Rotation
+    [HideInInspector]
+    public float yaw;
+
+    float pitch;
     private float rotationSmoothTime = 0.1f;
     Vector2 pitchMinMax = new Vector2(10, 89);
     Vector3 rotationSmoothVelocity;
     Vector3 currentRotation;
     Vector3 targetRotation;
-    [HideInInspector]
-    public float yaw;
-    float pitch;
 
     private void Start()
     {
@@ -65,14 +66,16 @@ public class CameraController : MonoBehaviour
             transform.eulerAngles = currentRotation;
 
             // Camera Zoom
-            var d = Input.GetAxis("Mouse ScrollWheel");
-            if (d > 0f)
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll > 0f)
             {
+                // Zoom in
                 if (targetCameraZoom > minDistanceFromTarget)
                     targetCameraZoom -= cameraZoomRate;
             }
-            else if (d < 0f)
+            else if (scroll < 0f)
             {
+                // Zoom out
                 if (targetCameraZoom < maxDistanceFromTarget)
                     targetCameraZoom += cameraZoomRate;
             }

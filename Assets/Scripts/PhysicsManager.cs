@@ -12,16 +12,16 @@ public class PhysicsManager : MonoBehaviour
     public GameObject playerStartPosition;
     public FinishTrigger finishTrigger;
 
-    [Header("Course Prefabs")]
+    [Header("Course Prefabs - Get filled automatically")]
     public GameObject[] trackParts;
     public GameObject[] cylinders;
 
-    // Bounding Volumes
+    // Bounding volumes
     GameObject parentObject;
     private List<Box> boxList = new List<Box>();
     private List<Cylinder> cylinderList = new List<Cylinder>();
 
-    //Collision
+    // Collision
     Vector3 normalVector;
     bool collisionHappened;
 
@@ -31,7 +31,7 @@ public class PhysicsManager : MonoBehaviour
         trackParts = GameObject.FindGameObjectsWithTag("TrackPart");
         cylinders = GameObject.FindGameObjectsWithTag("Cylinder");
 
-        // Make bounding box list
+        // Fill bounding box list
         foreach (GameObject trackObject in trackParts)
         {
             if(trackObject)
@@ -43,7 +43,7 @@ public class PhysicsManager : MonoBehaviour
             }
         }
 
-        // Create cylinder bounds list
+        // Fill cylinder bounds list
         foreach (GameObject cylinder in cylinders)
         {
             cylinderList.Add(cylinder.GetComponent<Cylinder>());
@@ -60,7 +60,6 @@ public class PhysicsManager : MonoBehaviour
         {
             ResetGame();
         }
-
     }
 
     private void FixedUpdate()
@@ -102,7 +101,7 @@ public class PhysicsManager : MonoBehaviour
     {
         collisionHappened = false;
 
-        // Box Collisions
+        // Box collisions
         foreach (Box box in boxList)
         {
             if (isSphereIntersectingAABB(ball.transform.position, box.bounds))
@@ -119,7 +118,7 @@ public class PhysicsManager : MonoBehaviour
             }
         }
 
-        // Cylinder Collisions
+        // Cylinder (Bumper) collisions
         foreach (Cylinder cylinder in cylinderList)
         {
             if (isSphereIntersectingCylinder(ball.transform.position, cylinder))
@@ -142,7 +141,7 @@ public class PhysicsManager : MonoBehaviour
 
         if (!collisionHappened)
         {
-            // If no more colliding, make movement change ready again
+            // If no more colliding, set movement change ready again
             ball.isColliding = false;
             ball.canChangeMovement = true;
         }
@@ -232,7 +231,7 @@ public class PhysicsManager : MonoBehaviour
 
     private Vector3 calcNormalVectorCylinder(PlayBall ball, Cylinder cylinder)
     {
-        // Ball is already colliding with the Cylinder when this code runs
+        // Ball is already colliding with the cylinder when this code runs
 
         // direction vector from the center of the cylinder to the center of the ball
         Vector3 heading = ball.transform.position - cylinder.position;

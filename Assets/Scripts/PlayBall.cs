@@ -39,7 +39,7 @@ public class PlayBall : MonoBehaviour
     
     void FixedUpdate()
     {
-        // Reset to checkpoint when ball falls off track
+        // Reset to checkpoint when ball falls off the course
         if (transform.position.y <= -80f)
         {
             transform.position = checkPointPosition;

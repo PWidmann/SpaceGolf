@@ -13,8 +13,8 @@ public class GameInterface : MonoBehaviour
     [SerializeField] GameObject swingText;
 
     [Header("Game Interface Panels")]
-    [SerializeField] GameObject welcomePanel;
     public GameObject escapeMenu;
+    [SerializeField] GameObject welcomePanel;
     [SerializeField] GameObject finishPanel;
     [SerializeField] Text finishText;
 
@@ -23,16 +23,15 @@ public class GameInterface : MonoBehaviour
     private int screenFlashAlpha = 0;
     private bool isScreenFlashing = false;
     
-    //Sound
+    // Sound
     [Header("Sound")]
     [SerializeField] Slider soundSlider;
     [SerializeField] Text soundValueText;
 
-    //Sound
+    // Mouse sensitivity
     [Header("Mouse Sensitivity")]
     [SerializeField] Slider sensitivitySlider;
     [SerializeField] Text sensitivityValueText;
-
 
     // Properties
     public GameObject PowerBar { get => powerBar; set => powerBar = value; }
@@ -99,9 +98,7 @@ public class GameInterface : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
-                
         }
-            
     }
 
     private void SwingText()

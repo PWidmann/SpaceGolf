@@ -26,6 +26,7 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
+        // Make sure the collision system can't spam the collision sound
         if (soundPlayTimer >= 0)
         {
             soundPlayTimer -= Time.deltaTime;
